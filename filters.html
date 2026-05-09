@@ -4,416 +4,86 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WoningFlash — Stel je filters in</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #080808;
-  --surface:  #111;
-  --surface2: #161616;
-  --border:   #1e1e1e;
-  --border2:  #2a2a2a;
-  --accent:   #00e5a0;
-  --accent2:  #00c488;
-  --text:     #ffffff;
-  --sub:      #999;
-  --dim:      #555;
-  --error:    #ff4d4d;
+  --bg: #080808; --surface: #111; --surface2: #161616;
+  --border: #1e1e1e; --border2: #2a2a2a;
+  --accent: #00e5a0; --accent2: #00c488;
+  --text: #ffffff; --sub: #aaa; --dim: #666;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 120px; -webkit-font-smoothing: antialiased; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  padding-bottom: 100px;
-  -webkit-font-smoothing: antialiased;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 64px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: rgba(8,8,8,0.96);
-  backdrop-filter: blur(16px);
-  z-index: 100;
-}
-
-.logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  text-decoration: none;
-}
+nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); z-index: 100; }
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
 .logo span { color: var(--accent); }
-
-.nav-back {
-  font-size: 0.8rem;
-  color: var(--dim);
-  text-decoration: none;
-  transition: color 0.15s;
-}
+.nav-back { font-size: 0.85rem; color: var(--dim); text-decoration: none; transition: color 0.15s; }
 .nav-back:hover { color: var(--sub); }
 
-.hero {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 56px 40px 36px;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(0,229,160,0.08);
-  border: 1px solid rgba(0,229,160,0.2);
-  color: var(--accent);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 5px 13px;
-  border-radius: 100px;
-  margin-bottom: 22px;
-}
-
-h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 2.8rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 14px;
-}
-
+.hero { max-width: 700px; margin: 0 auto; padding: 60px 40px 40px; }
+.pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); color: var(--accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 12px; }
 h1 em { color: var(--accent); font-style: normal; }
+.hero-sub { color: var(--sub); font-size: 0.95rem; line-height: 1.7; max-width: 440px; }
 
-.hero-sub {
-  color: var(--sub);
-  font-size: 0.95rem;
-  line-height: 1.65;
-  max-width: 460px;
-}
+form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 
-form {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 40px;
-  display: flex;
-  flex-direction: column;
-}
+.sec { display: flex; align-items: center; gap: 14px; padding: 36px 0 16px; border-top: 1px solid var(--border); margin-top: 8px; }
+.sec:first-of-type { border-top: none; margin-top: 0; }
+.sec-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 600; color: var(--accent); flex-shrink: 0; }
+.sec-title { font-size: 1rem; font-weight: 600; color: var(--text); }
 
-.sec {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 32px 0 14px;
-}
-
-.sec-num {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.sec-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 14px;
-  padding: 18px 22px;
-  margin-bottom: 8px;
-  transition: border-color 0.2s;
-}
-
-.card:focus-within { border-color: rgba(0,229,160,0.35); }
-
-.card > label {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--sub);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 9px;
-}
-
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 20px 24px; margin-bottom: 8px; transition: border-color 0.2s; }
+.card:focus-within { border-color: rgba(0,229,160,0.4); }
+.field-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--sub); margin-bottom: 10px; }
 .card input[type="text"],
 .card input[type="email"],
-.card input[type="number"] {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 0;
-  caret-color: var(--accent);
-}
-
+.card input[type="number"],
+.card input[type="date"] { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 400; padding: 0; caret-color: var(--accent); }
 .card input::placeholder { color: var(--dim); }
+.card input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.4); cursor: pointer; }
+.card input:disabled { opacity: 0.2; cursor: not-allowed; }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.row .card { margin-bottom: 0; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.card-header .field-label { margin-bottom: 0; }
 
-.tog {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-.tog input[type="radio"],
-.tog input[type="checkbox"] { display: none; }
+.skip-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.78rem; color: var(--dim); user-select: none; }
+.skip-toggle input { display: none; }
+.skip-box { width: 15px; height: 15px; border-radius: 4px; border: 1px solid var(--dim); display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
+.skip-toggle input:checked ~ .skip-box { background: var(--accent); border-color: var(--accent); }
+.skip-toggle input:checked ~ .skip-box::after { content: '✓'; font-size: 9px; color: #000; font-weight: 800; }
+.skip-toggle input:checked ~ .skip-label { color: var(--accent); }
 
-.tog label {
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 9px;
-  border: 1px solid var(--border2);
-  font-size: 0.87rem;
-  font-weight: 500;
-  color: var(--sub);
-  background: var(--surface2);
-  transition: all 0.15s;
-  user-select: none;
-}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.grid-2 .card { margin-bottom: 0; }
 
-.tog label:hover { border-color: #3a3a3a; color: #ccc; }
+.tog { display: flex; flex-wrap: wrap; gap: 8px; }
+.tog input { display: none; }
+.tog label { cursor: pointer; padding: 9px 18px; border-radius: 10px; border: 1px solid var(--border2); font-size: 0.88rem; font-weight: 500; color: var(--sub); background: var(--surface2); transition: all 0.15s; user-select: none; }
+.tog label:hover { border-color: #333; color: #ccc; }
+.tog input:checked + label { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.07); font-weight: 600; }
 
-.tog input:checked + label {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(0,229,160,0.07);
-}
+.huur-only, .koop-only { transition: none; }
+.hidden { display: none !important; }
 
-/* PLANS */
-.plans {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.plans input[type="radio"] { display: none; }
-
-.plan {
-  display: block;
-  background: var(--surface);
-  border: 2px solid var(--border2);
-  border-radius: 18px;
-  padding: 24px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.plan:hover { border-color: #333; }
-
-.plans input:checked + .plan {
-  border-color: var(--accent);
-  background: rgba(0,229,160,0.04);
-}
-
-.plans input:checked + .plan .plan-btn {
-  background: var(--accent);
-  color: #000;
-  border-color: var(--accent);
-}
-
-.plan-badge {
-  position: absolute;
-  top: 16px; right: 16px;
-  background: var(--accent);
-  color: #000;
-  font-family: 'Syne', sans-serif;
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 100px;
-}
-
-.plan-tier {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-bottom: 12px;
-}
-
-.plan-price {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.eur {
-  font-size: 1rem;
-  vertical-align: 0.4em;
-  font-weight: 600;
-}
-.amt { font-size: 2.2rem; }
-.per {
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--dim);
-  margin-left: 2px;
-}
-
-.plan-desc {
-  font-size: 0.75rem;
-  color: var(--dim);
-  margin-bottom: 20px;
-  margin-top: 6px;
-}
-
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 22px;
-}
-
-.plan-features li {
-  font-size: 0.82rem;
-  color: var(--sub);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  line-height: 1.4;
-}
-
-.plan-features li::before {
-  content: '✓';
-  color: var(--accent);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.plans input:checked + .plan .plan-features li { color: #c0c0c0; }
-
-.plan-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border2);
-  background: var(--surface2);
-  color: var(--dim);
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.submit-area { padding-top: 28px; }
-
-.submit-btn {
-  width: 100%;
-  background: var(--accent);
-  color: #000;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  border: none;
-  border-radius: 13px;
-  padding: 18px;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-}
-
-.submit-btn:hover {
-  background: var(--accent2);
-  box-shadow: 0 8px 32px rgba(0,229,160,0.22);
-}
+.submit-area { padding-top: 36px; }
+.submit-btn { width: 100%; background: var(--accent); color: #000; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 14px; padding: 20px; cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.1s; }
+.submit-btn:hover { background: var(--accent2); box-shadow: 0 10px 40px rgba(0,229,160,0.25); }
 .submit-btn:active { transform: scale(0.99); }
-.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.submit-note { text-align: center; color: var(--dim); font-size: 0.78rem; margin-top: 14px; line-height: 1.7; }
 
-.submit-note {
-  text-align: center;
-  color: var(--dim);
-  font-size: 0.74rem;
-  margin-top: 12px;
-  line-height: 1.6;
-}
+#success { display: none; max-width: 700px; margin: 100px auto; padding: 0 40px; text-align: center; }
+.success-icon { width: 80px; height: 80px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 32px; }
+#success h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
+#success p { color: var(--sub); font-size: 1rem; line-height: 1.8; }
 
-#success {
-  display: none;
-  max-width: 680px;
-  margin: 80px auto;
-  padding: 0 40px;
-  text-align: center;
-}
-
-.success-icon {
-  width: 72px;
-  height: 72px;
-  background: rgba(0,229,160,0.1);
-  border: 1px solid rgba(0,229,160,0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  margin: 0 auto 28px;
-}
-
-#success h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-}
-
-#success p { color: var(--sub); font-size: 0.95rem; line-height: 1.7; }
-
-@media (max-width: 580px) {
+@media (max-width: 600px) {
   nav, .hero, form { padding-left: 20px; padding-right: 20px; }
-  h1 { font-size: 1.85rem; }
-  .row, .plans { grid-template-columns: 1fr; }
+  h1 { font-size: 1.8rem; }
+  .grid-2 { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -421,78 +91,88 @@ form {
 
 <nav>
   <a href="/" class="logo">WONING<span>FLASH</span></a>
-  <a href="/" class="nav-back">← Terug</a>
+  <a href="/" class="nav-back">← Terug naar home</a>
 </nav>
 
 <div class="hero">
   <div class="pill">⚡ Filters instellen</div>
   <h1>Vertel ons wat je <em>zoekt</em></h1>
-  <p class="hero-sub">Vul je woonwensen in. Zodra er een match is sturen we je direct een Telegram-alert — geen vertraging.</p>
+  <p class="hero-sub">Vul je woonwensen in. Zodra er een woning online komt die matcht, sturen we je direct een Telegram-alert.</p>
 </div>
 
 <form id="filterForm">
 
+  <!-- 1. GEGEVENS -->
   <div class="sec"><div class="sec-num">1</div><div class="sec-title">Jouw gegevens</div></div>
+  <div class="card"><span class="field-label">Voornaam</span><input type="text" name="naam" placeholder="Jan" required autocomplete="given-name"></div>
+  <div class="card"><span class="field-label">E-mailadres</span><input type="email" name="email" placeholder="jan@email.com" required autocomplete="email"></div>
 
-  <div class="card">
-    <label>Voornaam</label>
-    <input type="text" name="naam" placeholder="Jan" required autocomplete="given-name">
-  </div>
-  <div class="card">
-    <label>Telegram gebruikersnaam</label>
-    <input type="text" name="telegram" placeholder="@jouwusername" required>
-  </div>
-  <div class="card">
-    <label>E-mailadres</label>
-    <input type="email" name="email" placeholder="jan@email.com" required autocomplete="email">
-  </div>
-
+  <!-- 2. TYPE -->
   <div class="sec"><div class="sec-num">2</div><div class="sec-title">Type woning</div></div>
-
   <div class="card">
-    <label>Koop of huur?</label>
+    <span class="field-label">Koop of huur?</span>
     <div class="tog">
       <input type="radio" name="type" id="koop" value="koop" checked><label for="koop">Koop</label>
       <input type="radio" name="type" id="huur" value="huur"><label for="huur">Huur</label>
       <input type="radio" name="type" id="beide" value="beide"><label for="beide">Beide</label>
     </div>
   </div>
+  <div class="card">
+    <span class="field-label">Woningtype</span>
+    <div class="tog">
+      <input type="radio" name="woningtype" id="wt_alle" value="alle" checked><label for="wt_alle">Alle types</label>
+      <input type="radio" name="woningtype" id="wt_huis" value="huis"><label for="wt_huis">Huis</label>
+      <input type="radio" name="woningtype" id="wt_appartement" value="appartement"><label for="wt_appartement">Appartement</label>
+    </div>
+  </div>
 
+  <!-- 3. LOCATIE -->
   <div class="sec"><div class="sec-num">3</div><div class="sec-title">Locatie</div></div>
-
   <div class="card">
-    <label>Stad / gemeente / wijk</label>
-    <input type="text" name="locatie" placeholder="Amsterdam, Utrecht, Rotterdam-Centrum" required>
+    <span class="field-label">Stad <span style="font-weight:400;color:#666">— meerdere steden? Zet er een komma tussen</span></span>
+    <input type="text" name="locatie" id="locatie" placeholder="bijv. Amsterdam, Utrecht, Rotterdam" required autocomplete="off">
   </div>
 
+  <!-- 4. BUDGET -->
   <div class="sec"><div class="sec-num">4</div><div class="sec-title">Budget</div></div>
-
-  <div class="row">
+  <div class="grid-2">
     <div class="card">
-      <label id="label_min">Minimale prijs (€)</label>
-      <input type="number" name="prijs_min" placeholder="0" min="0">
+      <div class="card-header">
+        <span class="field-label" id="label_min">Minimale prijs (€)</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      </div>
+      <input type="number" name="prijs_min" id="prijs_min" placeholder="0" min="0" data-ph="0">
     </div>
     <div class="card">
-      <label id="label_max">Maximale prijs (€)</label>
-      <input type="number" name="prijs_max" id="prijs_max" placeholder="500.000" min="0" required>
+      <div class="card-header">
+        <span class="field-label" id="label_max">Maximale prijs (€)</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_max',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      </div>
+      <input type="number" name="prijs_max" id="prijs_max" placeholder="500.000" min="0" data-ph="500.000">
     </div>
   </div>
 
+  <!-- 5. WONING -->
   <div class="sec"><div class="sec-num">5</div><div class="sec-title">Woningkenmerken</div></div>
-
-  <div class="row">
+  <div class="grid-2">
     <div class="card">
-      <label>Min. oppervlak (m²)</label>
-      <input type="number" name="opp_min" placeholder="50" min="0">
+      <div class="card-header">
+        <span class="field-label">Min. woonoppervlak (m²)</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('opp_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      </div>
+      <input type="number" name="opp_min" id="opp_min" placeholder="50" min="0" data-ph="50">
     </div>
     <div class="card">
-      <label>Min. aantal kamers</label>
-      <input type="number" name="kamers_min" placeholder="2" min="1">
+      <div class="card-header">
+        <span class="field-label">Min. aantal kamers</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('kamers_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      </div>
+      <input type="number" name="kamers_min" id="kamers_min" placeholder="2" min="1" data-ph="2">
     </div>
   </div>
 
   <div class="card">
-    <label>Energielabel (minimaal)</label>
+    <span class="field-label">Energielabel (minimaal)</span>
     <div class="tog">
       <input type="radio" name="energielabel" id="el_geen" value="geen" checked><label for="el_geen">Geen voorkeur</label>
       <input type="radio" name="energielabel" id="el_g" value="G"><label for="el_g">G</label>
@@ -505,48 +185,34 @@ form {
     </div>
   </div>
 
+  <!-- Bouwjaar: alleen koop -->
+  <div class="card koop-only">
+    <div class="card-header">
+      <span class="field-label">Bouwjaar vanaf</span>
+      <label class="skip-toggle"><input type="checkbox" onchange="skip('bouwjaar_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+    </div>
+    <input type="number" name="bouwjaar_min" id="bouwjaar_min" placeholder="1990" min="1800" max="2025" data-ph="1990">
+  </div>
+
+  <!-- 6. VOORZIENINGEN -->
+  <div class="sec"><div class="sec-num">6</div><div class="sec-title">Voorzieningen</div></div>
   <div class="card">
-    <label>Extra wensen</label>
     <div class="tog">
-      <input type="checkbox" id="tuin" name="extra" value="tuin"><label for="tuin">Tuin / balkon</label>
-      <input type="checkbox" id="parkeren" name="extra" value="parkeren"><label for="parkeren">Parkeren</label>
-      <input type="checkbox" id="huisdieren" name="extra" value="huisdieren"><label for="huisdieren">Huisdieren toegestaan</label>
-      <input type="checkbox" id="gemeubileerd" name="extra" value="gemeubileerd"><label for="gemeubileerd">Gemeubileerd</label>
+      <input type="checkbox" id="tuin" name="tuin" value="true"><label for="tuin">🌿 Tuin / balkon</label>
+      <input type="checkbox" id="parkeren" name="parkeren" value="true"><label for="parkeren">🚗 Parkeren</label>
+      <input type="checkbox" id="huisdieren" name="huisdieren" value="true" class="huur-only hidden"><label for="huisdieren" class="huur-only hidden">🐾 Huisdieren ok</label>
+      <input type="checkbox" id="gemeubileerd" name="gemeubileerd" value="true" class="huur-only hidden"><label for="gemeubileerd" class="huur-only hidden">🛋️ Gemeubileerd</label>
     </div>
   </div>
 
-  <div class="sec"><div class="sec-num">6</div><div class="sec-title">Kies je abonnement</div></div>
-
-  <div class="plans">
-    <input type="radio" name="abonnement" id="standaard" value="standaard" checked>
-    <label for="standaard" class="plan">
-      <div class="plan-tier">Standaard</div>
-      <div class="plan-price"><span class="eur">€</span><span class="amt">9,99</span><span class="per">/ maand</span></div>
-      <div class="plan-desc">Ideaal om te starten</div>
-      <ul class="plan-features">
-        <li>Real-time Telegram alerts</li>
-        <li>Locatie, prijs, m² &amp; kamers filter</li>
-        <li>Funda scraper actief</li>
-        <li>Opzegbaar per maand</li>
-      </ul>
-      <div class="plan-btn">Kies Standaard</div>
-    </label>
-
-    <input type="radio" name="abonnement" id="premium" value="premium">
-    <label for="premium" class="plan">
-      <div class="plan-badge">Populairste</div>
-      <div class="plan-tier">Premium</div>
-      <div class="plan-price"><span class="eur">€</span><span class="amt">17,50</span><span class="per">/ maand</span></div>
-      <div class="plan-desc">Voor de serieuze woningzoeker</div>
-      <ul class="plan-features">
-        <li>Alles van Standaard</li>
-        <li>Energielabel filter</li>
-        <li>Tuin, parkeren &amp; huisdieren</li>
-        <li>Prioriteit bij nieuwe scrapers</li>
-        <li>WhatsApp alerts (binnenkort)</li>
-      </ul>
-      <div class="plan-btn">Kies Premium</div>
-    </label>
+  <!-- 7. BESCHIKBAARHEID: alleen huur -->
+  <div class="sec huur-only hidden"><div class="sec-num">7</div><div class="sec-title">Beschikbaarheid</div></div>
+  <div class="card huur-only hidden">
+    <div class="card-header">
+      <span class="field-label">Beschikbaar per datum</span>
+      <label class="skip-toggle"><input type="checkbox" onchange="skip('beschikbaar_per',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+    </div>
+    <input type="date" name="beschikbaar_per" id="beschikbaar_per" data-ph="">
   </div>
 
   <div class="submit-area">
@@ -559,25 +225,50 @@ form {
 <div id="success">
   <div class="success-icon">⚡</div>
   <h2>Filters opgeslagen!</h2>
-  <p>Je ontvangt binnenkort een bevestiging van <strong>@WoningFlash</strong> op Telegram.<br>Zodra er een match is word je direct gealerteerd.</p>
+  <p>Je ontvangt zo een bevestiging van <strong>WoningFlash</strong> op Telegram.<br>Zodra er een woning matcht word je direct gealerteerd.</p>
 </div>
 
 <script>
-  // Dynamic budget labels
-  const budgetLabels = {
-    koop:  { min: 'Minimale vraagprijs (€)', max: 'Maximale vraagprijs (€)',   ph: '500.000' },
-    huur:  { min: 'Minimale huurprijs (€/mnd)', max: 'Maximale huurprijs (€/mnd)', ph: '1.500'   },
-    beide: { min: 'Minimale prijs (€)',       max: 'Maximale prijs (€)',        ph: '500.000' },
-  };
+  // Chat ID ophalen uit URL: woningflash.nl/filters?id=123456
+  const urlParams = new URLSearchParams(window.location.search);
+  const chatId = urlParams.get('id') || '';
+
+  function skip(id, cb) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.disabled = cb.checked;
+    el.value = '';
+    el.placeholder = cb.checked ? 'Geen voorkeur' : (el.dataset.ph || '');
+  }
+
+  function updateType(val) {
+    const isHuur = val === 'huur' || val === 'beide';
+    const isKoop = val === 'koop' || val === 'beide';
+
+    document.querySelectorAll('.huur-only').forEach(el => el.classList.toggle('hidden', !isHuur));
+    document.querySelectorAll('.koop-only').forEach(el => el.classList.toggle('hidden', !isKoop));
+
+    if (!isHuur) {
+      ['huisdieren','gemeubileerd'].forEach(id => { const el = document.getElementById(id); if(el) el.checked = false; });
+    }
+
+    const labels = {
+      koop:  { min: 'Minimale vraagprijs (€)', max: 'Maximale vraagprijs (€)', ph: '500.000' },
+      huur:  { min: 'Minimale huurprijs (€/mnd)', max: 'Maximale huurprijs (€/mnd)', ph: '1.500' },
+      beide: { min: 'Minimale prijs (€)', max: 'Maximale prijs (€)', ph: '500.000' },
+    };
+    const l = labels[val];
+    document.getElementById('label_min').textContent = l.min;
+    document.getElementById('label_max').textContent = l.max;
+    const pm = document.getElementById('prijs_max');
+    if (!pm.disabled) { pm.placeholder = l.ph; pm.dataset.ph = l.ph; }
+  }
 
   document.querySelectorAll('input[name="type"]').forEach(el => {
-    el.addEventListener('change', function() {
-      const l = budgetLabels[this.value];
-      document.getElementById('label_min').textContent = l.min;
-      document.getElementById('label_max').textContent = l.max;
-      document.getElementById('prijs_max').placeholder = l.ph;
-    });
+    el.addEventListener('change', () => updateType(el.value));
   });
+
+  updateType('koop');
 
   const WEBHOOK = 'https://hook.eu1.make.com/rl4cjqggu1qlkprxfg6rv12ba2nwvwdt';
 
@@ -588,17 +279,27 @@ form {
     btn.textContent = 'Verzenden…';
 
     const fd = new FormData(this);
-    const extra = [...document.querySelectorAll('input[name="extra"]:checked')].map(el => el.value);
-    let telegram = fd.get('telegram') || '';
-    if (telegram && !telegram.startsWith('@')) telegram = '@' + telegram;
+    const g = id => { const el = document.getElementById(id); return el?.disabled ? 'geen' : (fd.get(id) || ''); };
 
     const payload = {
-      naam: fd.get('naam'), telegram, email: fd.get('email'),
-      type: fd.get('type'), locatie: fd.get('locatie'),
-      prijs_min: fd.get('prijs_min') || '0', prijs_max: fd.get('prijs_max'),
-      opp_min: fd.get('opp_min') || '0', kamers_min: fd.get('kamers_min') || '1',
-      energielabel: fd.get('energielabel'), extra: extra.join(', '),
-      abonnement: fd.get('abonnement'), timestamp: new Date().toISOString()
+      chat_id: chatId,
+      naam: fd.get('naam'),
+      email: fd.get('email'),
+      type: fd.get('type'),
+      woningtype: fd.get('woningtype'),
+      locatie: fd.get('locatie'),
+      prijs_min: document.getElementById('prijs_min').disabled ? 'geen' : (fd.get('prijs_min') || '0'),
+      prijs_max: document.getElementById('prijs_max').disabled ? 'geen' : (fd.get('prijs_max') || '0'),
+      opp_min: g('opp_min'),
+      kamers_min: g('kamers_min'),
+      energielabel: fd.get('energielabel'),
+      bouwjaar_min: g('bouwjaar_min'),
+      tuin: fd.get('tuin') ? 'true' : 'false',
+      parkeren: fd.get('parkeren') ? 'true' : 'false',
+      huisdieren: fd.get('huisdieren') ? 'true' : 'false',
+      gemeubileerd: fd.get('gemeubileerd') ? 'true' : 'false',
+      beschikbaar_per: g('beschikbaar_per'),
+      timestamp: new Date().toISOString()
     };
 
     try {
