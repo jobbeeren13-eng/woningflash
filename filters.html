@@ -10,7 +10,7 @@
   --bg: #080808; --surface: #111; --surface2: #161616;
   --border: #1e1e1e; --border2: #2a2a2a;
   --accent: #00e5a0; --accent2: #00c488;
-  --text: #ffffff; --sub: #aaa; --dim: #666;
+  --text: #ffffff; --sub: #aaa; --dim: #888;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -37,7 +37,7 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 
 .card { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 20px 24px; margin-bottom: 8px; transition: border-color 0.2s; }
 .card:focus-within { border-color: rgba(0,229,160,0.4); }
-.field-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--sub); margin-bottom: 10px; }
+.field-label { display: block; font-size: 0.85rem; font-weight: 600; color: #bbb; margin-bottom: 10px; }
 .card input[type="text"],
 .card input[type="email"],
 .card input[type="number"],
@@ -49,7 +49,7 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .card-header .field-label { margin-bottom: 0; }
 
-.skip-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.78rem; color: var(--dim); user-select: none; }
+.skip-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; color: var(--sub); user-select: none; }
 .skip-toggle input { display: none; }
 .skip-box { width: 15px; height: 15px; border-radius: 4px; border: 1px solid var(--dim); display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
 .skip-toggle input:checked ~ .skip-box { background: var(--accent); border-color: var(--accent); }
@@ -73,7 +73,7 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 .submit-btn:hover { background: var(--accent2); box-shadow: 0 10px 40px rgba(0,229,160,0.25); }
 .submit-btn:active { transform: scale(0.99); }
 .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
-.submit-note { text-align: center; color: var(--dim); font-size: 0.78rem; margin-top: 14px; line-height: 1.7; }
+.submit-note { text-align: center; color: var(--sub); font-size: 0.82rem; margin-top: 14px; line-height: 1.7; }
 
 #success { display: none; max-width: 700px; margin: 100px auto; padding: 0 40px; text-align: center; }
 .success-icon { width: 80px; height: 80px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 32px; }
@@ -104,8 +104,8 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 
   <!-- 1. GEGEVENS -->
   <div class="sec"><div class="sec-num">1</div><div class="sec-title">Jouw gegevens</div></div>
-  <div class="card"><span class="field-label">Voornaam</span><input type="text" name="naam" placeholder="Jan" required autocomplete="given-name"></div>
-  <div class="card"><span class="field-label">E-mailadres</span><input type="email" name="email" placeholder="jan@email.com" required autocomplete="email"></div>
+  <div class="card"><span class="field-label">Voornaam <span style="color:var(--accent)">*</span></span><input type="text" name="naam" placeholder="Jan" autocomplete="given-name"></div>
+  <div class="card"><span class="field-label">E-mailadres <span style="color:var(--accent)">*</span></span><input type="email" name="email" placeholder="jan@email.com" autocomplete="email"></div>
 
   <!-- 2. TYPE -->
   <div class="sec"><div class="sec-num">2</div><div class="sec-title">Type woning</div></div>
@@ -129,8 +129,8 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
   <!-- 3. LOCATIE -->
   <div class="sec"><div class="sec-num">3</div><div class="sec-title">Locatie</div></div>
   <div class="card">
-    <span class="field-label">Stad <span style="font-weight:400;color:#666">— meerdere steden? Zet er een komma tussen</span></span>
-    <input type="text" name="locatie" id="locatie" placeholder="bijv. Amsterdam, Utrecht, Rotterdam" required autocomplete="off">
+    <span class="field-label">Stad <span style="color:var(--accent)">*</span> <span style="font-weight:400;color:#888">— meerdere steden? Zet er een komma tussen</span></span>
+    <input type="text" name="locatie" id="locatie" placeholder="bijv. Amsterdam, Utrecht, Rotterdam" autocomplete="off">
   </div>
 
   <!-- 4. BUDGET -->
@@ -145,7 +145,7 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
     </div>
     <div class="card">
       <div class="card-header">
-        <span class="field-label" id="label_max">Maximale prijs (€)</span>
+        <span class="field-label" id="label_max">Maximale prijs (€) <span style="color:var(--accent)">*</span></span>
         <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_max',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
       </div>
       <input type="number" name="prijs_max" id="prijs_max" placeholder="500.000" min="0" data-ph="500.000">
@@ -274,32 +274,55 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 
   document.getElementById('filterForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    // Verplichte velden valideren
+    const vNaam    = (this.querySelector('[name="naam"]')?.value || '').trim();
+    const vEmail   = (this.querySelector('[name="email"]')?.value || '').trim();
+    const vLocatie = (this.querySelector('[name="locatie"]')?.value || '').trim();
+    const prijsMaxEl = document.getElementById('prijs_max');
+    const prijsMaxLeeg = !prijsMaxEl.disabled && (!prijsMaxEl.value || Number(prijsMaxEl.value) <= 0);
+
+    const errors = [];
+    if (!vNaam)                               errors.push('• Voornaam is verplicht');
+    if (!vEmail || !vEmail.includes('@'))      errors.push('• Geldig e-mailadres is verplicht');
+    if (!vLocatie)                            errors.push('• Locatie / stad is verplicht');
+    if (prijsMaxLeeg)                         errors.push('• Maximale prijs is verplicht (of vink "Geen voorkeur" aan)');
+
+    if (errors.length > 0) {
+      alert('Vul de verplichte velden in:\n\n' + errors.join('\n'));
+      return;
+    }
+
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = 'Verzenden…';
 
     const fd = new FormData(this);
-    const g = id => { const el = document.getElementById(id); return el?.disabled ? 'geen' : (fd.get(id) || ''); };
+
+    // Helper: geeft 0 als veld disabled (geen voorkeur) of leeg
+    const num = id => { const el = document.getElementById(id); return el?.disabled ? 0 : (Number(fd.get(id)) || 0); };
+    // Helper: geeft 'geen' als veld disabled of leeg
+    const txt = id => { const el = document.getElementById(id); return el?.disabled ? 'geen' : (fd.get(id) || 'geen'); };
 
     const payload = {
-      chat_id: chatId,
-      naam: fd.get('naam'),
-      email: fd.get('email'),
-      type: fd.get('type'),
-      woningtype: fd.get('woningtype'),
-      locatie: fd.get('locatie'),
-      prijs_min: document.getElementById('prijs_min').disabled ? 'geen' : (fd.get('prijs_min') || '0'),
-      prijs_max: document.getElementById('prijs_max').disabled ? 'geen' : (fd.get('prijs_max') || '0'),
-      opp_min: g('opp_min'),
-      kamers_min: g('kamers_min'),
-      energielabel: fd.get('energielabel'),
-      bouwjaar_min: g('bouwjaar_min'),
-      tuin: fd.get('tuin') ? 'true' : 'false',
-      parkeren: fd.get('parkeren') ? 'true' : 'false',
-      huisdieren: fd.get('huisdieren') ? 'true' : 'false',
-      gemeubileerd: fd.get('gemeubileerd') ? 'true' : 'false',
-      beschikbaar_per: g('beschikbaar_per'),
-      timestamp: new Date().toISOString()
+      chat_id:        chatId,
+      naam:           vNaam,
+      email:          vEmail,
+      type:           fd.get('type')       || 'koop',
+      woningtype:     fd.get('woningtype') || 'alle',
+      locatie:        vLocatie,
+      prijs_min:      num('prijs_min'),
+      prijs_max:      prijsMaxEl.disabled ? 999999999 : (Number(fd.get('prijs_max')) || 999999999),
+      opp_min:        num('opp_min'),
+      kamers_min:     num('kamers_min'),
+      energielabel:   fd.get('energielabel') || 'geen',
+      bouwjaar_min:   num('bouwjaar_min'),
+      tuin:           fd.get('tuin')        ? 'true' : 'false',
+      parkeren:       fd.get('parkeren')    ? 'true' : 'false',
+      huisdieren:     fd.get('huisdieren')  ? 'true' : 'false',
+      gemeubileerd:   fd.get('gemeubileerd')? 'true' : 'false',
+      beschikbaar_per: txt('beschikbaar_per'),
+      timestamp:      new Date().toISOString()
     };
 
     try {
