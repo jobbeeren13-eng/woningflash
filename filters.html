@@ -310,7 +310,7 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
       email:          vEmail,
       type:           fd.get('type')       || 'koop',
       woningtype:     fd.get('woningtype') || 'alle',
-      locatie:        vLocatie,
+      locatie: vLocatie.toLowerCase(),
       prijs_min:      num('prijs_min'),
       prijs_max:      prijsMaxEl.disabled ? 999999999 : (Number(fd.get('prijs_max')) || 999999999),
       opp_min:        num('opp_min'),
