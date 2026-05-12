@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WoningFlash — Stel je filters in</title>
+<title>WoningFlash — Filters</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -15,166 +15,191 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; padding-bottom: 120px; -webkit-font-smoothing: antialiased; }
-
 nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(8,8,8,0.97); backdrop-filter: blur(20px); z-index: 100; }
 .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
 .logo span { color: var(--accent); }
 .nav-back { font-size: 0.85rem; color: var(--dim); text-decoration: none; transition: color 0.15s; }
 .nav-back:hover { color: var(--sub); }
-
 .hero { max-width: 700px; margin: 0 auto; padding: 60px 40px 40px; }
 .pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); color: var(--accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
 h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 12px; }
 h1 em { color: var(--accent); font-style: normal; }
 .hero-sub { color: var(--sub); font-size: 0.95rem; line-height: 1.7; max-width: 440px; }
-
 form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
-
 .sec { display: flex; align-items: center; gap: 14px; padding: 36px 0 16px; border-top: 1px solid var(--border); margin-top: 8px; }
 .sec:first-of-type { border-top: none; margin-top: 0; }
 .sec-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 600; color: var(--accent); flex-shrink: 0; }
 .sec-title { font-size: 1rem; font-weight: 600; color: var(--text); }
-
 .card { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 20px 24px; margin-bottom: 8px; transition: border-color 0.2s; }
 .card:focus-within { border-color: rgba(0,229,160,0.4); }
 .field-label { display: block; font-size: 0.85rem; font-weight: 600; color: #bbb; margin-bottom: 10px; }
-.card input[type="text"],
-.card input[type="email"],
-.card input[type="number"],
-.card input[type="date"] { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 400; padding: 0; caret-color: var(--accent); }
+.field-hint { display: block; font-size: 0.78rem; color: var(--dim); margin-bottom: 10px; margin-top: -6px; }
+.card input[type="text"],.card input[type="email"],.card input[type="number"],.card input[type="date"] { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 400; padding: 0; caret-color: var(--accent); }
 .card input::placeholder { color: var(--dim); }
 .card input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.4); cursor: pointer; }
 .card input:disabled { opacity: 0.2; cursor: not-allowed; }
-
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .card-header .field-label { margin-bottom: 0; }
-
 .skip-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; color: var(--sub); user-select: none; }
 .skip-toggle input { display: none; }
 .skip-box { width: 15px; height: 15px; border-radius: 4px; border: 1px solid var(--dim); display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
 .skip-toggle input:checked ~ .skip-box { background: var(--accent); border-color: var(--accent); }
 .skip-toggle input:checked ~ .skip-box::after { content: '✓'; font-size: 9px; color: #000; font-weight: 800; }
 .skip-toggle input:checked ~ .skip-label { color: var(--accent); }
-
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
 .grid-2 .card { margin-bottom: 0; }
-
 .tog { display: flex; flex-wrap: wrap; gap: 8px; }
 .tog input { display: none; }
 .tog label { cursor: pointer; padding: 9px 18px; border-radius: 10px; border: 1px solid var(--border2); font-size: 0.88rem; font-weight: 500; color: var(--sub); background: var(--surface2); transition: all 0.15s; user-select: none; }
 .tog label:hover { border-color: #333; color: #ccc; }
 .tog input:checked + label { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.07); font-weight: 600; }
-
-.huur-only, .koop-only { transition: none; }
+.huur-only,.koop-only,.expat-only { transition: none; }
 .hidden { display: none !important; }
-
 .submit-area { padding-top: 36px; }
 .submit-btn { width: 100%; background: var(--accent); color: #000; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 14px; padding: 20px; cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.1s; }
 .submit-btn:hover { background: var(--accent2); box-shadow: 0 10px 40px rgba(0,229,160,0.25); }
 .submit-btn:active { transform: scale(0.99); }
 .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 .submit-note { text-align: center; color: var(--sub); font-size: 0.82rem; margin-top: 14px; line-height: 1.7; }
-
 #success { display: none; max-width: 700px; margin: 100px auto; padding: 0 40px; text-align: center; }
 .success-icon { width: 80px; height: 80px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 32px; }
 #success h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
 #success p { color: var(--sub); font-size: 1rem; line-height: 1.8; }
-
-@media (max-width: 600px) {
-  nav, .hero, form { padding-left: 20px; padding-right: 20px; }
-  h1 { font-size: 1.8rem; }
-  .grid-2 { grid-template-columns: 1fr; }
-}
+@media (max-width: 600px) { nav,.hero,form { padding-left: 20px; padding-right: 20px; } h1 { font-size: 1.8rem; } .grid-2 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-
 <nav>
   <a href="/" class="logo">WONING<span>FLASH</span></a>
-  <a href="/" class="nav-back">← Terug naar home</a>
+  <a href="/" class="nav-back" id="nav-back">← Back to home</a>
 </nav>
-
 <div class="hero">
-  <div class="pill">⚡ Filters instellen</div>
-  <h1>Vertel ons wat je <em>zoekt</em></h1>
-  <p class="hero-sub">Vul je woonwensen in. Zodra er een woning online komt die matcht, sturen we je direct een Telegram-alert.</p>
+  <div class="pill">⚡ <span id="pill-text">Set your filters</span></div>
+  <h1 id="hero-h1">Tell us what you're <em>looking for</em></h1>
+  <p class="hero-sub" id="hero-sub">Fill in your preferences. The moment a matching home goes live, we send you a Telegram alert instantly.</p>
 </div>
-
 <form id="filterForm">
+  <div class="sec"><div class="sec-num">1</div><div class="sec-title" id="sec1">Your details</div></div>
+  <div class="card"><span class="field-label" id="lbl-naam">First name <span style="color:var(--accent)">*</span></span><input type="text" name="naam" id="inp-naam" placeholder="Jan" autocomplete="given-name"></div>
+  <div class="card"><span class="field-label" id="lbl-email">Email address <span style="color:var(--accent)">*</span></span><input type="email" name="email" id="inp-email" placeholder="jan@email.com" autocomplete="email"></div>
 
-  <!-- 1. GEGEVENS -->
-  <div class="sec"><div class="sec-num">1</div><div class="sec-title">Jouw gegevens</div></div>
-  <div class="card"><span class="field-label">Voornaam <span style="color:var(--accent)">*</span></span><input type="text" name="naam" placeholder="Jan" autocomplete="given-name"></div>
-  <div class="card"><span class="field-label">E-mailadres <span style="color:var(--accent)">*</span></span><input type="email" name="email" placeholder="jan@email.com" autocomplete="email"></div>
-
-  <!-- 2. TYPE -->
-  <div class="sec"><div class="sec-num">2</div><div class="sec-title">Type woning</div></div>
+  <div class="sec"><div class="sec-num">2</div><div class="sec-title" id="sec2">Your profile</div></div>
   <div class="card">
-    <span class="field-label">Koop of huur?</span>
+    <span class="field-label" id="lbl-profiel">Who are you?</span>
     <div class="tog">
-      <input type="radio" name="type" id="koop" value="koop" checked><label for="koop">Koop</label>
-      <input type="radio" name="type" id="huur" value="huur"><label for="huur">Huur</label>
-      <input type="radio" name="type" id="beide" value="beide"><label for="beide">Beide</label>
+      <input type="radio" name="profiel_type" id="pt_starter" value="starter" checked><label for="pt_starter" id="lbl-pt-starter">🏠 Starter</label>
+      <input type="radio" name="profiel_type" id="pt_expat" value="expat"><label for="pt_expat" id="lbl-pt-expat">✈️ Expat</label>
+      <input type="radio" name="profiel_type" id="pt_doorstromer" value="doorstromer"><label for="pt_doorstromer" id="lbl-pt-door">🔑 Mover</label>
+      <input type="radio" name="profiel_type" id="pt_anders" value="anders"><label for="pt_anders" id="lbl-pt-anders">Other</label>
+    </div>
+  </div>
+  <div class="card expat-only hidden">
+    <span class="field-label" id="lbl-expat">Expat status</span>
+    <div class="tog">
+      <input type="radio" name="expat_status" id="es_eu" value="EU" checked><label for="es_eu">🇪🇺 EU citizen</label>
+      <input type="radio" name="expat_status" id="es_noneu" value="non-EU"><label for="es_noneu">🌍 Non-EU</label>
     </div>
   </div>
   <div class="card">
-    <span class="field-label">Woningtype</span>
+    <span class="field-label" id="lbl-contract">Contract type</span>
     <div class="tog">
-      <input type="radio" name="woningtype" id="wt_alle" value="alle" checked><label for="wt_alle">Alle types</label>
-      <input type="radio" name="woningtype" id="wt_huis" value="huis"><label for="wt_huis">Huis</label>
-      <input type="radio" name="woningtype" id="wt_appartement" value="appartement"><label for="wt_appartement">Appartement</label>
+      <input type="radio" name="contract_type" id="ct_vast" value="vast" checked><label for="ct_vast" id="lbl-ct-vast">Permanent</label>
+      <input type="radio" name="contract_type" id="ct_flex" value="flexibel"><label for="ct_flex" id="lbl-ct-flex">Flexible</label>
+      <input type="radio" name="contract_type" id="ct_zzp" value="zzp"><label for="ct_zzp">ZZP / Freelance</label>
+      <input type="radio" name="contract_type" id="ct_student" value="student"><label for="ct_student" id="lbl-ct-student">Student</label>
+    </div>
+  </div>
+  <div class="card">
+    <span class="field-label" id="lbl-inkomen">Gross monthly income (€)</span>
+    <span class="field-hint" id="hint-inkomen">Used to calculate your chance of success on listings</span>
+    <input type="number" name="inkomen" id="inkomen" placeholder="3500" min="0">
+  </div>
+  <div class="card">
+    <span class="field-label" id="lbl-docs">Document readiness</span>
+    <div class="tog">
+      <input type="radio" name="document_readiness" id="dr_klaar" value="klaar" checked><label for="dr_klaar" id="lbl-dr-klaar">✅ Everything ready</label>
+      <input type="radio" name="document_readiness" id="dr_bijna" value="bijna"><label for="dr_bijna" id="lbl-dr-bijna">⏳ Almost ready</label>
+      <input type="radio" name="document_readiness" id="dr_niet" value="niet"><label for="dr_niet" id="lbl-dr-niet">❌ Not yet</label>
+    </div>
+  </div>
+  <div class="card">
+    <span class="field-label" id="lbl-timing">When are you available to move?</span>
+    <div class="tog">
+      <input type="radio" name="beschikbaarheid_timing" id="bt_direct" value="direct" checked><label for="bt_direct" id="lbl-bt-direct">Direct</label>
+      <input type="radio" name="beschikbaarheid_timing" id="bt_1m" value="1 maand"><label for="bt_1m" id="lbl-bt-1m">Within 1 month</label>
+      <input type="radio" name="beschikbaarheid_timing" id="bt_3m" value="1-3 maanden"><label for="bt_3m" id="lbl-bt-3m">Within 1-3 months</label>
+      <input type="radio" name="beschikbaarheid_timing" id="bt_6m" value="3-6 maanden"><label for="bt_6m" id="lbl-bt-6m">Within 3-6 months</label>
+      <input type="radio" name="beschikbaarheid_timing" id="bt_12m" value="6-12 maanden"><label for="bt_12m" id="lbl-bt-12m">Within 6-12 months</label>
+      <input type="radio" name="beschikbaarheid_timing" id="bt_flex" value="flexibel"><label for="bt_flex" id="lbl-bt-flex">Flexible</label>
     </div>
   </div>
 
-  <!-- 3. LOCATIE -->
-  <div class="sec"><div class="sec-num">3</div><div class="sec-title">Locatie</div></div>
+  <div class="sec"><div class="sec-num">3</div><div class="sec-title" id="sec3">Type of property</div></div>
   <div class="card">
-    <span class="field-label">Stad <span style="color:var(--accent)">*</span> <span style="font-weight:400;color:#888">— meerdere steden? Zet er een komma tussen</span></span>
-    <input type="text" name="locatie" id="locatie" placeholder="bijv. Amsterdam, Utrecht, Rotterdam" autocomplete="off">
+    <span class="field-label" id="lbl-type">Buy or rent?</span>
+    <div class="tog">
+      <input type="radio" name="type" id="koop" value="koop" checked><label for="koop" id="lbl-koop">Buy</label>
+      <input type="radio" name="type" id="huur" value="huur"><label for="huur" id="lbl-huur">Rent</label>
+      <input type="radio" name="type" id="beide" value="beide"><label for="beide" id="lbl-beide">Both</label>
+    </div>
+  </div>
+  <div class="card">
+    <span class="field-label" id="lbl-woningtype">Property type</span>
+    <div class="tog">
+      <input type="radio" name="woningtype" id="wt_alle" value="alle" checked><label for="wt_alle" id="lbl-wt-alle">All types</label>
+      <input type="radio" name="woningtype" id="wt_huis" value="huis"><label for="wt_huis" id="lbl-wt-huis">House</label>
+      <input type="radio" name="woningtype" id="wt_app" value="appartement"><label for="wt_app" id="lbl-wt-app">Apartment</label>
+    </div>
   </div>
 
-  <!-- 4. BUDGET -->
-  <div class="sec"><div class="sec-num">4</div><div class="sec-title">Budget</div></div>
+  <div class="sec"><div class="sec-num">4</div><div class="sec-title" id="sec4">Location</div></div>
+  <div class="card">
+    <span class="field-label">
+      <span id="lbl-locatie">City</span> <span style="color:var(--accent)">*</span>
+      <span style="font-weight:400;color:#888" id="lbl-locatie-hint"> — multiple cities? Separate with a comma</span>
+    </span>
+    <input type="text" name="locatie" id="locatie" placeholder="e.g. Amsterdam, Utrecht" autocomplete="off">
+  </div>
+
+  <div class="sec"><div class="sec-num">5</div><div class="sec-title" id="sec5">Budget</div></div>
   <div class="grid-2">
     <div class="card">
       <div class="card-header">
-        <span class="field-label" id="label_min">Minimale prijs (€)</span>
-        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+        <span class="field-label" id="label_min">Min. price (€)</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_min',this)"><div class="skip-box"></div><span class="skip-label" id="skip-min">No preference</span></label>
       </div>
       <input type="number" name="prijs_min" id="prijs_min" placeholder="0" min="0" data-ph="0">
     </div>
     <div class="card">
       <div class="card-header">
-        <span class="field-label" id="label_max">Maximale prijs (€) <span style="color:var(--accent)">*</span></span>
-        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_max',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+        <span class="field-label" id="label_max">Max. price (€) <span style="color:var(--accent)">*</span></span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('prijs_max',this)"><div class="skip-box"></div><span class="skip-label" id="skip-max">No preference</span></label>
       </div>
       <input type="number" name="prijs_max" id="prijs_max" placeholder="500.000" min="0" data-ph="500.000">
     </div>
   </div>
 
-  <!-- 5. WONING -->
-  <div class="sec"><div class="sec-num">5</div><div class="sec-title">Woningkenmerken</div></div>
+  <div class="sec"><div class="sec-num">6</div><div class="sec-title" id="sec6">Property details</div></div>
   <div class="grid-2">
     <div class="card">
       <div class="card-header">
-        <span class="field-label">Min. woonoppervlak (m²)</span>
-        <label class="skip-toggle"><input type="checkbox" onchange="skip('opp_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+        <span class="field-label" id="lbl-opp">Min. floor area (m²)</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('opp_min',this)"><div class="skip-box"></div><span class="skip-label" id="skip-opp">No preference</span></label>
       </div>
       <input type="number" name="opp_min" id="opp_min" placeholder="50" min="0" data-ph="50">
     </div>
     <div class="card">
       <div class="card-header">
-        <span class="field-label">Min. aantal kamers</span>
-        <label class="skip-toggle"><input type="checkbox" onchange="skip('kamers_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+        <span class="field-label" id="lbl-kamers">Min. rooms</span>
+        <label class="skip-toggle"><input type="checkbox" onchange="skip('kamers_min',this)"><div class="skip-box"></div><span class="skip-label" id="skip-kamers">No preference</span></label>
       </div>
       <input type="number" name="kamers_min" id="kamers_min" placeholder="2" min="1" data-ph="2">
     </div>
   </div>
-
   <div class="card">
-    <span class="field-label">Energielabel (minimaal)</span>
+    <span class="field-label" id="lbl-energie">Energy label (minimum)</span>
     <div class="tog">
-      <input type="radio" name="energielabel" id="el_geen" value="geen" checked><label for="el_geen">Geen voorkeur</label>
+      <input type="radio" name="energielabel" id="el_geen" value="geen" checked><label for="el_geen" id="lbl-el-geen">No preference</label>
       <input type="radio" name="energielabel" id="el_g" value="G"><label for="el_g">G</label>
       <input type="radio" name="energielabel" id="el_f" value="F"><label for="el_f">F</label>
       <input type="radio" name="energielabel" id="el_e" value="E"><label for="el_e">E</label>
@@ -184,159 +209,228 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
       <input type="radio" name="energielabel" id="el_a" value="A"><label for="el_a">A+</label>
     </div>
   </div>
-
-  <!-- Bouwjaar: alleen koop -->
   <div class="card koop-only">
     <div class="card-header">
-      <span class="field-label">Bouwjaar vanaf</span>
-      <label class="skip-toggle"><input type="checkbox" onchange="skip('bouwjaar_min',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      <span class="field-label" id="lbl-bouwjaar">Year of construction (from)</span>
+      <label class="skip-toggle"><input type="checkbox" onchange="skip('bouwjaar_min',this)"><div class="skip-box"></div><span class="skip-label" id="skip-bouwjaar">No preference</span></label>
     </div>
     <input type="number" name="bouwjaar_min" id="bouwjaar_min" placeholder="1990" min="1800" max="2025" data-ph="1990">
   </div>
 
-  <!-- 6. VOORZIENINGEN -->
-  <div class="sec"><div class="sec-num">6</div><div class="sec-title">Voorzieningen</div></div>
+  <div class="sec"><div class="sec-num">7</div><div class="sec-title" id="sec7">Extras</div></div>
   <div class="card">
     <div class="tog">
-      <input type="checkbox" id="tuin" name="tuin" value="true"><label for="tuin">🌿 Tuin / balkon</label>
-      <input type="checkbox" id="parkeren" name="parkeren" value="true"><label for="parkeren">🚗 Parkeren</label>
-      <input type="checkbox" id="huisdieren" name="huisdieren" value="true" class="huur-only hidden"><label for="huisdieren" class="huur-only hidden">🐾 Huisdieren ok</label>
-      <input type="checkbox" id="gemeubileerd" name="gemeubileerd" value="true" class="huur-only hidden"><label for="gemeubileerd" class="huur-only hidden">🛋️ Gemeubileerd</label>
+      <input type="checkbox" id="tuin" name="tuin" value="true"><label for="tuin" id="lbl-tuin">🌿 Garden / balcony</label>
+      <input type="checkbox" id="parkeren" name="parkeren" value="true"><label for="parkeren" id="lbl-parkeren">🚗 Parking</label>
+      <input type="checkbox" id="delen_toegestaan" name="delen_toegestaan" value="true"><label for="delen_toegestaan" id="lbl-delen">👥 Sharing allowed</label>
+      <input type="checkbox" id="huisdieren" name="huisdieren" value="true" class="huur-only hidden"><label for="huisdieren" class="huur-only hidden" id="lbl-huisdieren">🐾 Pets allowed</label>
+      <input type="checkbox" id="gemeubileerd" name="gemeubileerd" value="true" class="huur-only hidden"><label for="gemeubileerd" class="huur-only hidden" id="lbl-gemeubileerd">🛋️ Furnished</label>
     </div>
   </div>
 
-  <!-- 7. BESCHIKBAARHEID: alleen huur -->
-  <div class="sec huur-only hidden"><div class="sec-num">7</div><div class="sec-title">Beschikbaarheid</div></div>
+  <div class="sec huur-only hidden"><div class="sec-num">8</div><div class="sec-title" id="sec8">Availability</div></div>
   <div class="card huur-only hidden">
     <div class="card-header">
-      <span class="field-label">Beschikbaar per datum</span>
-      <label class="skip-toggle"><input type="checkbox" onchange="skip('beschikbaar_per',this)"><div class="skip-box"></div><span class="skip-label">Geen voorkeur</span></label>
+      <span class="field-label" id="lbl-beschikbaar">Available from date</span>
+      <label class="skip-toggle"><input type="checkbox" onchange="skip('beschikbaar_per',this)"><div class="skip-box"></div><span class="skip-label" id="skip-besch">No preference</span></label>
     </div>
     <input type="date" name="beschikbaar_per" id="beschikbaar_per" data-ph="">
   </div>
 
   <div class="submit-area">
-    <button type="submit" class="submit-btn" id="submitBtn">Filters opslaan &amp; starten ⚡</button>
-    <p class="submit-note">Je ontvangt een bevestiging via Telegram &nbsp;·&nbsp; Opzegbaar wanneer je wilt</p>
+    <button type="submit" class="submit-btn" id="submitBtn">Save filters &amp; go live ⚡</button>
+    <p class="submit-note" id="submit-note">You'll receive a confirmation via Telegram · Cancel anytime</p>
   </div>
-
 </form>
 
 <div id="success">
   <div class="success-icon">⚡</div>
-  <h2>Filters opgeslagen!</h2>
-  <p>Je ontvangt zo een bevestiging van <strong>WoningFlash</strong> op Telegram.<br>Zodra er een woning matcht word je direct gealerteerd.</p>
+  <h2 id="success-title">Filters saved!</h2>
+  <p id="success-body">You'll receive a confirmation from <strong>WoningFlash</strong> on Telegram.<br>The moment a match is listed, you'll be the first to know.</p>
 </div>
 
 <script>
-  // Chat ID ophalen uit URL: woningflash.nl/filters?id=123456
-  const urlParams = new URLSearchParams(window.location.search);
-  const chatId = urlParams.get('id') || '';
+const urlParams = new URLSearchParams(window.location.search);
+const chatId = urlParams.get('id') || '';
+const lang = urlParams.get('lang') || 'en';
 
-  function skip(id, cb) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.disabled = cb.checked;
-    el.value = '';
-    el.placeholder = cb.checked ? 'Geen voorkeur' : (el.dataset.ph || '');
+const T = {
+  en: {
+    navBack: '← Back to home', pill: 'Set your filters',
+    heroH1: "Tell us what you're <em>looking for</em>",
+    heroSub: 'Fill in your preferences. The moment a matching home goes live, we send you a Telegram alert instantly.',
+    sec1:'Your details', sec2:'Your profile', sec3:'Type of property', sec4:'Location', sec5:'Budget', sec6:'Property details', sec7:'Extras', sec8:'Availability',
+    naam:'First name', email:'Email address', namePh:'Jan', emailPh:'jan@email.com',
+    profiel:'Who are you?', ptStarter:'🏠 Starter', ptExpat:'✈️ Expat', ptDoor:'🔑 Mover', ptAnders:'Other',
+    expat:'Expat status', contract:'Contract type', ctVast:'Permanent', ctFlex:'Flexible', ctStudent:'Student',
+    inkomen:'Gross monthly income (€)', inkomenHint:'Used to calculate your chance of success on listings',
+    docs:'Document readiness', drKlaar:'✅ Everything ready', drBijna:'⏳ Almost ready', drNiet:'❌ Not yet',
+    timing:'When are you available to move?', btDirect:'Direct', bt1m:'Within 1 month', bt3m:'Within 1-3 months', bt6m:'Within 3-6 months', bt12m:'Within 6-12 months', btFlex:'Flexible',
+    type:'Buy or rent?', koop:'Buy', huur:'Rent', beide:'Both',
+    woningtype:'Property type', wtAlle:'All types', wtHuis:'House', wtApp:'Apartment',
+    locatie:'City', locatieHint:' — multiple cities? Separate with a comma', locatiePh:'e.g. Amsterdam, Utrecht',
+    opp:'Min. floor area (m²)', kamers:'Min. rooms', energie:'Energy label (minimum)', elGeen:'No preference',
+    bouwjaar:'Year of construction (from)', noPref:'No preference',
+    tuin:'🌿 Garden / balcony', parkeren:'🚗 Parking', delen:'👥 Sharing allowed',
+    huisdieren:'🐾 Pets allowed', gemeubileerd:'🛋️ Furnished', beschikbaar:'Available from date',
+    submitBtn:'Save filters & go live ⚡', submitNote:"You'll receive a confirmation via Telegram · Cancel anytime",
+    successTitle:'Filters saved!', successBody:"You'll receive a confirmation from <strong>WoningFlash</strong> on Telegram.<br>The moment a match is listed, you'll be the first to know.",
+    eNaam:'• First name is required', eEmail:'• Valid email address is required', eLocatie:'• City is required', ePrijs:'• Max price is required (or check "No preference")',
+    alertPrefix:'Please fill in the required fields:\n\n', saving:'Saving…', errMsg:'Something went wrong. Please try again.',
+    koop_labels: { min:'Min. asking price (€)', max:'Max. asking price (€)', ph:'500.000' },
+    huur_labels: { min:'Min. rent (€/month)', max:'Max. rent (€/month)', ph:'1.500' },
+    beide_labels: { min:'Min. price (€)', max:'Max. price (€)', ph:'500.000' },
+  },
+  nl: {
+    navBack: '← Terug naar home', pill: 'Filters instellen',
+    heroH1: 'Vertel ons wat je <em>zoekt</em>',
+    heroSub: 'Vul je woonwensen in. Zodra er een woning online komt die matcht, sturen we je direct een Telegram-alert.',
+    sec1:'Jouw gegevens', sec2:'Jouw profiel', sec3:'Type woning', sec4:'Locatie', sec5:'Budget', sec6:'Woningkenmerken', sec7:'Voorzieningen', sec8:'Beschikbaarheid',
+    naam:'Voornaam', email:'E-mailadres', namePh:'Jan', emailPh:'jan@email.com',
+    profiel:'Wie ben je?', ptStarter:'🏠 Starter', ptExpat:'✈️ Expat', ptDoor:'🔑 Doorstromer', ptAnders:'Overig',
+    expat:'Expat status', contract:'Contract type', ctVast:'Vast dienstverband', ctFlex:'Flexibel', ctStudent:'Student',
+    inkomen:'Bruto maandinkomen (€)', inkomenHint:'Wordt gebruikt voor de kansberekening op woningen',
+    docs:'Document gereedheid', drKlaar:'✅ Alles klaar', drBijna:'⏳ Bijna klaar', drNiet:'❌ Nog niet',
+    timing:'Wanneer kun je verhuizen?', btDirect:'Direct', bt1m:'Binnen 1 maand', bt3m:'Binnen 1-3 maanden', bt6m:'Binnen 3-6 maanden', bt12m:'Binnen 6-12 maanden', btFlex:'Flexibel',
+    type:'Koop of huur?', koop:'Koop', huur:'Huur', beide:'Beide',
+    woningtype:'Woningtype', wtAlle:'Alle types', wtHuis:'Huis', wtApp:'Appartement',
+    locatie:'Stad', locatieHint:' — meerdere steden? Zet er een komma tussen', locatiePh:'bijv. Amsterdam, Utrecht',
+    opp:'Min. woonoppervlak (m²)', kamers:'Min. aantal kamers', energie:'Energielabel (minimaal)', elGeen:'Geen voorkeur',
+    bouwjaar:'Bouwjaar vanaf', noPref:'Geen voorkeur',
+    tuin:'🌿 Tuin / balkon', parkeren:'🚗 Parkeren', delen:'👥 Delen toegestaan',
+    huisdieren:'🐾 Huisdieren ok', gemeubileerd:'🛋️ Gemeubileerd', beschikbaar:'Beschikbaar per datum',
+    submitBtn:'Filters opslaan & starten ⚡', submitNote:'Je ontvangt een bevestiging via Telegram · Opzegbaar wanneer je wilt',
+    successTitle:'Filters opgeslagen!', successBody:'Je ontvangt zo een bevestiging van <strong>WoningFlash</strong> op Telegram.<br>Zodra er een woning matcht word je direct gealerteerd.',
+    eNaam:'• Voornaam is verplicht', eEmail:'• Geldig e-mailadres is verplicht', eLocatie:'• Locatie / stad is verplicht', ePrijs:'• Maximale prijs is verplicht (of vink "Geen voorkeur" aan)',
+    alertPrefix:'Vul de verplichte velden in:\n\n', saving:'Verzenden…', errMsg:'Er ging iets mis. Probeer het opnieuw.',
+    koop_labels: { min:'Minimale vraagprijs (€)', max:'Maximale vraagprijs (€)', ph:'500.000' },
+    huur_labels: { min:'Minimale huurprijs (€/mnd)', max:'Maximale huurprijs (€/mnd)', ph:'1.500' },
+    beide_labels: { min:'Minimale prijs (€)', max:'Maximale prijs (€)', ph:'500.000' },
   }
+}[lang] || {};
 
-  function updateType(val) {
-    const isHuur = val === 'huur' || val === 'beide';
-    const isKoop = val === 'koop' || val === 'beide';
+function txt(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
+function html(id, val) { const el = document.getElementById(id); if(el) el.innerHTML = val; }
+function ph(id, val) { const el = document.getElementById(id); if(el) el.placeholder = val; }
 
-    document.querySelectorAll('.huur-only').forEach(el => el.classList.toggle('hidden', !isHuur));
-    document.querySelectorAll('.koop-only').forEach(el => el.classList.toggle('hidden', !isKoop));
+function applyLang() {
+  txt('nav-back', T.navBack); txt('pill-text', T.pill);
+  html('hero-h1', T.heroH1); txt('hero-sub', T.heroSub);
+  txt('sec1',T.sec1); txt('sec2',T.sec2); txt('sec3',T.sec3); txt('sec4',T.sec4);
+  txt('sec5',T.sec5); txt('sec6',T.sec6); txt('sec7',T.sec7); txt('sec8',T.sec8);
+  html('lbl-naam', T.naam + ' <span style="color:var(--accent)">*</span>');
+  html('lbl-email', T.email + ' <span style="color:var(--accent)">*</span>');
+  ph('inp-naam', T.namePh); ph('inp-email', T.emailPh);
+  txt('lbl-profiel',T.profiel); txt('lbl-pt-starter',T.ptStarter); txt('lbl-pt-expat',T.ptExpat);
+  txt('lbl-pt-door',T.ptDoor); txt('lbl-pt-anders',T.ptAnders);
+  txt('lbl-expat',T.expat); txt('lbl-contract',T.contract);
+  txt('lbl-ct-vast',T.ctVast); txt('lbl-ct-flex',T.ctFlex); txt('lbl-ct-student',T.ctStudent);
+  txt('lbl-inkomen',T.inkomen); txt('hint-inkomen',T.inkomenHint);
+  txt('lbl-docs',T.docs); txt('lbl-dr-klaar',T.drKlaar); txt('lbl-dr-bijna',T.drBijna); txt('lbl-dr-niet',T.drNiet);
+  txt('lbl-timing',T.timing); txt('lbl-bt-direct',T.btDirect); txt('lbl-bt-1m',T.bt1m); txt('lbl-bt-3m',T.bt3m); txt('lbl-bt-6m',T.bt6m); txt('lbl-bt-12m',T.bt12m); txt('lbl-bt-flex',T.btFlex);
+  txt('lbl-type',T.type); txt('lbl-koop',T.koop); txt('lbl-huur',T.huur); txt('lbl-beide',T.beide);
+  txt('lbl-woningtype',T.woningtype); txt('lbl-wt-alle',T.wtAlle); txt('lbl-wt-huis',T.wtHuis); txt('lbl-wt-app',T.wtApp);
+  txt('lbl-locatie',T.locatie); txt('lbl-locatie-hint',T.locatieHint); ph('locatie',T.locatiePh);
+  txt('lbl-opp',T.opp); txt('lbl-kamers',T.kamers);
+  txt('lbl-energie',T.energie); txt('lbl-el-geen',T.elGeen); txt('lbl-bouwjaar',T.bouwjaar);
+  ['skip-min','skip-max','skip-opp','skip-kamers','skip-bouwjaar','skip-besch'].forEach(id => txt(id, T.noPref));
+  txt('lbl-tuin',T.tuin); txt('lbl-parkeren',T.parkeren); txt('lbl-delen',T.delen);
+  txt('lbl-huisdieren',T.huisdieren); txt('lbl-gemeubileerd',T.gemeubileerd); txt('lbl-beschikbaar',T.beschikbaar);
+  document.getElementById('submitBtn').textContent = T.submitBtn;
+  txt('submit-note',T.submitNote);
+  txt('success-title',T.successTitle); html('success-body',T.successBody);
+}
 
-    if (!isHuur) {
-      ['huisdieren','gemeubileerd'].forEach(id => { const el = document.getElementById(id); if(el) el.checked = false; });
-    }
+function skip(id, cb) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.disabled = cb.checked;
+  el.value = '';
+  el.placeholder = cb.checked ? T.noPref : (el.dataset.ph || '');
+}
 
-    const labels = {
-      koop:  { min: 'Minimale vraagprijs (€)', max: 'Maximale vraagprijs (€)', ph: '500.000' },
-      huur:  { min: 'Minimale huurprijs (€/mnd)', max: 'Maximale huurprijs (€/mnd)', ph: '1.500' },
-      beide: { min: 'Minimale prijs (€)', max: 'Maximale prijs (€)', ph: '500.000' },
-    };
-    const l = labels[val];
-    document.getElementById('label_min').textContent = l.min;
-    document.getElementById('label_max').textContent = l.max;
-    const pm = document.getElementById('prijs_max');
-    if (!pm.disabled) { pm.placeholder = l.ph; pm.dataset.ph = l.ph; }
+function updateType(val) {
+  const isHuur = val === 'huur' || val === 'beide';
+  const isKoop = val === 'koop' || val === 'beide';
+  document.querySelectorAll('.huur-only').forEach(el => el.classList.toggle('hidden', !isHuur));
+  document.querySelectorAll('.koop-only').forEach(el => el.classList.toggle('hidden', !isKoop));
+  if (!isHuur) ['huisdieren','gemeubileerd'].forEach(id => { const el = document.getElementById(id); if(el) el.checked = false; });
+  const l = T[val+'_labels'] || T.koop_labels;
+  txt('label_min', l.min);
+  html('label_max', l.max + ' <span style="color:var(--accent)">*</span>');
+  const pm = document.getElementById('prijs_max');
+  if (!pm.disabled) { pm.placeholder = l.ph; pm.dataset.ph = l.ph; }
+}
+
+function updateProfiel(val) {
+  document.querySelectorAll('.expat-only').forEach(el => el.classList.toggle('hidden', val !== 'expat'));
+}
+
+document.querySelectorAll('input[name="type"]').forEach(el => el.addEventListener('change', () => updateType(el.value)));
+document.querySelectorAll('input[name="profiel_type"]').forEach(el => el.addEventListener('change', () => updateProfiel(el.value)));
+
+applyLang();
+updateType('koop');
+updateProfiel('starter');
+
+const WEBHOOK = 'https://hook.eu1.make.com/rl4cjqggu1qlkprxfg6rv12ba2nwvwdt';
+
+document.getElementById('filterForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const vNaam = (this.querySelector('[name="naam"]')?.value||'').trim();
+  const vEmail = (this.querySelector('[name="email"]')?.value||'').trim();
+  const vLocatie = (this.querySelector('[name="locatie"]')?.value||'').trim();
+  const prijsMaxEl = document.getElementById('prijs_max');
+  const prijsMaxLeeg = !prijsMaxEl.disabled && (!prijsMaxEl.value || Number(prijsMaxEl.value) <= 0);
+
+  const errors = [];
+  if (!vNaam) errors.push(T.eNaam);
+  if (!vEmail || !vEmail.includes('@')) errors.push(T.eEmail);
+  if (!vLocatie) errors.push(T.eLocatie);
+  if (prijsMaxLeeg) errors.push(T.ePrijs);
+  if (errors.length > 0) { alert(T.alertPrefix + errors.join('\n')); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = T.saving;
+
+  const fd = new FormData(this);
+  const num = id => { const el = document.getElementById(id); return el?.disabled ? 0 : (Number(fd.get(id))||0); };
+  const ttxt = id => { const el = document.getElementById(id); return el?.disabled ? 'geen' : (fd.get(id)||'geen'); };
+
+  const payload = {
+    chat_id: chatId, taal: lang, naam: vNaam, email: vEmail,
+    profiel_type: fd.get('profiel_type')||'starter',
+    expat_status: fd.get('expat_status')||'n/a',
+    contract_type: fd.get('contract_type')||'vast',
+    inkomen: num('inkomen'),
+    document_readiness: fd.get('document_readiness')||'klaar',
+    beschikbaarheid_timing: fd.get('beschikbaarheid_timing')||'direct',
+    type: fd.get('type')||'koop', woningtype: fd.get('woningtype')||'alle',
+    locatie: vLocatie.toLowerCase(),
+    prijs_min: num('prijs_min'),
+    prijs_max: prijsMaxEl.disabled ? 999999999 : (Number(fd.get('prijs_max'))||999999999),
+    opp_min: num('opp_min'), kamers_min: num('kamers_min'),
+    energielabel: fd.get('energielabel')||'geen', bouwjaar_min: num('bouwjaar_min'),
+    tuin: fd.get('tuin') ? 'true' : 'false',
+    parkeren: fd.get('parkeren') ? 'true' : 'false',
+    delen_toegestaan: fd.get('delen_toegestaan') ? 'true' : 'false',
+    huisdieren: fd.get('huisdieren') ? 'true' : 'false',
+    gemeubileerd: fd.get('gemeubileerd') ? 'true' : 'false',
+    beschikbaar_per: ttxt('beschikbaar_per'),
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    document.getElementById('filterForm').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+    window.scrollTo({ top:0, behavior:'smooth' });
+  } catch {
+    btn.disabled = false; btn.textContent = T.submitBtn;
+    alert(T.errMsg);
   }
-
-  document.querySelectorAll('input[name="type"]').forEach(el => {
-    el.addEventListener('change', () => updateType(el.value));
-  });
-
-  updateType('koop');
-
-  const WEBHOOK = 'https://hook.eu1.make.com/rl4cjqggu1qlkprxfg6rv12ba2nwvwdt';
-
-  document.getElementById('filterForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    // Verplichte velden valideren
-    const vNaam    = (this.querySelector('[name="naam"]')?.value || '').trim();
-    const vEmail   = (this.querySelector('[name="email"]')?.value || '').trim();
-    const vLocatie = (this.querySelector('[name="locatie"]')?.value || '').trim();
-    const prijsMaxEl = document.getElementById('prijs_max');
-    const prijsMaxLeeg = !prijsMaxEl.disabled && (!prijsMaxEl.value || Number(prijsMaxEl.value) <= 0);
-
-    const errors = [];
-    if (!vNaam)                               errors.push('• Voornaam is verplicht');
-    if (!vEmail || !vEmail.includes('@'))      errors.push('• Geldig e-mailadres is verplicht');
-    if (!vLocatie)                            errors.push('• Locatie / stad is verplicht');
-    if (prijsMaxLeeg)                         errors.push('• Maximale prijs is verplicht (of vink "Geen voorkeur" aan)');
-
-    if (errors.length > 0) {
-      alert('Vul de verplichte velden in:\n\n' + errors.join('\n'));
-      return;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Verzenden…';
-
-    const fd = new FormData(this);
-
-    // Helper: geeft 0 als veld disabled (geen voorkeur) of leeg
-    const num = id => { const el = document.getElementById(id); return el?.disabled ? 0 : (Number(fd.get(id)) || 0); };
-    // Helper: geeft 'geen' als veld disabled of leeg
-    const txt = id => { const el = document.getElementById(id); return el?.disabled ? 'geen' : (fd.get(id) || 'geen'); };
-
-    const payload = {
-      chat_id:        chatId,
-      naam:           vNaam,
-      email:          vEmail,
-      type:           fd.get('type')       || 'koop',
-      woningtype:     fd.get('woningtype') || 'alle',
-      locatie: vLocatie.toLowerCase(),
-      prijs_min:      num('prijs_min'),
-      prijs_max:      prijsMaxEl.disabled ? 999999999 : (Number(fd.get('prijs_max')) || 999999999),
-      opp_min:        num('opp_min'),
-      kamers_min:     num('kamers_min'),
-      energielabel:   fd.get('energielabel') || 'geen',
-      bouwjaar_min:   num('bouwjaar_min'),
-      tuin:           fd.get('tuin')        ? 'true' : 'false',
-      parkeren:       fd.get('parkeren')    ? 'true' : 'false',
-      huisdieren:     fd.get('huisdieren')  ? 'true' : 'false',
-      gemeubileerd:   fd.get('gemeubileerd')? 'true' : 'false',
-      beschikbaar_per: txt('beschikbaar_per'),
-      timestamp:      new Date().toISOString()
-    };
-
-    try {
-      await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      document.getElementById('filterForm').style.display = 'none';
-      document.querySelector('.hero').style.display = 'none';
-      document.getElementById('success').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Filters opslaan & starten ⚡';
-      alert('Er ging iets mis. Probeer het opnieuw.');
-    }
-  });
+});
 </script>
 </body>
 </html>
