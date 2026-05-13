@@ -61,10 +61,24 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 .submit-btn:active { transform: scale(0.99); }
 .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 .submit-note { text-align: center; color: var(--sub); font-size: 0.82rem; margin-top: 14px; line-height: 1.7; }
-#success { display: none; max-width: 700px; margin: 100px auto; padding: 0 40px; text-align: center; }
-.success-icon { width: 80px; height: 80px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 32px; }
-#success h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; }
-#success p { color: var(--sub); font-size: 1rem; line-height: 1.8; }
+#success { display: none; max-width: 700px; margin: 80px auto; padding: 0 40px; text-align: center; }
+#success.visible { display: block; animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.success-ring { position: relative; width: 100px; height: 100px; margin: 0 auto 40px; }
+.success-ring::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(0,229,160,0.15); animation: ringPulse 2s ease-out infinite; }
+@keyframes ringPulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.4); opacity: 0; } }
+.success-icon { width: 100px; height: 100px; background: radial-gradient(circle at 40% 40%, rgba(0,229,160,0.18), rgba(0,229,160,0.04)); border: 1px solid rgba(0,229,160,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; position: relative; }
+.success-steps { display: flex; flex-direction: column; gap: 12px; max-width: 420px; margin: 40px auto 0; text-align: left; }
+.success-step { display: flex; align-items: flex-start; gap: 14px; background: var(--surface); border: 1px solid var(--border2); border-radius: 12px; padding: 16px 18px; animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.success-step:nth-child(1) { animation-delay: 0.1s; }
+.success-step:nth-child(2) { animation-delay: 0.2s; }
+.success-step:nth-child(3) { animation-delay: 0.3s; }
+.step-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+.step-text { font-size: 0.9rem; color: var(--sub); line-height: 1.6; }
+.step-text strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+#success h2 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.05s both; }
+#success h2 em { color: var(--accent); font-style: normal; }
+#success > p { color: var(--sub); font-size: 1rem; line-height: 1.8; animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
 @media (max-width: 600px) { nav,.hero,form { padding-left: 20px; padding-right: 20px; } h1 { font-size: 1.8rem; } .grid-2 { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -244,9 +258,21 @@ form { max-width: 700px; margin: 0 auto; padding: 0 40px; }
 </form>
 
 <div id="success">
-  <div class="success-icon">⚡</div>
-  <h2 id="success-title">Filters saved!</h2>
-  <p id="success-body">You'll receive a confirmation from <strong>WoningFlash</strong> on Telegram.<br>The moment a match is listed, you'll be the first to know.</p>
+  <div class="success-ring">
+    <div class="success-icon">⚡</div>
+  </div>
+  <h2 id="success-title">You're <em>live</em>.</h2>
+  <p id="success-body">Your filters are active. We're scanning Funda right now.</p>
+  <div class="success-steps" id="success-steps">
+    <div class="success-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Filters saved</strong>We've locked in your preferences and started scanning.</div>
+    </div>
+    <div class="success-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>You get the alert first</strong>Instant Telegram message — including your personal chance score 🟢</div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -274,7 +300,9 @@ const T = {
     tuin:'🌿 Garden / balcony', parkeren:'🚗 Parking', delen:'👥 Sharing allowed',
     huisdieren:'🐾 Pets allowed', gemeubileerd:'🛋️ Furnished', beschikbaar:'Available from date',
     submitBtn:'Save filters & go live ⚡', submitNote:"You'll receive a confirmation via Telegram · Cancel anytime",
-    successTitle:'Filters saved!', successBody:"You'll receive a confirmation from <strong>WoningFlash</strong> on Telegram.<br>The moment a match is listed, you'll be the first to know.",
+    successTitle:"You're live.", successBody:'Your filters are active. We\'re scanning Funda right now.',
+    step1Title:'Filters saved', step1Body:"We've locked in your preferences and started scanning.",
+    step2Title:'You get the alert first', step2Body:'Instant Telegram message — including your personal chance score 🟢',
     eNaam:'• First name is required', eEmail:'• Valid email address is required', eLocatie:'• City is required', ePrijs:'• Max price is required (or check "No preference")',
     alertPrefix:'Please fill in the required fields:\n\n', saving:'Saving…', errMsg:'Something went wrong. Please try again.',
     koop_labels: { min:'Min. asking price (€)', max:'Max. asking price (€)', ph:'500.000' },
@@ -300,7 +328,9 @@ const T = {
     tuin:'🌿 Tuin / balkon', parkeren:'🚗 Parkeren', delen:'👥 Delen toegestaan',
     huisdieren:'🐾 Huisdieren ok', gemeubileerd:'🛋️ Gemeubileerd', beschikbaar:'Beschikbaar per datum',
     submitBtn:'Filters opslaan & starten ⚡', submitNote:'Je ontvangt een bevestiging via Telegram · Opzegbaar wanneer je wilt',
-    successTitle:'Filters opgeslagen!', successBody:'Je ontvangt zo een bevestiging van <strong>WoningFlash</strong> op Telegram.<br>Zodra er een woning matcht word je direct gealerteerd.',
+    successTitle:'Je bent <em>live</em>.', successBody:'Je filters zijn actief. We scannen Funda op dit moment.',
+    step1Title:'Filters opgeslagen', step1Body:'We hebben je wensen vastgelegd en zijn begonnen met scannen.',
+    step2Title:'Jij krijgt de alert als eerste', step2Body:'Direct een Telegram bericht — inclusief jouw persoonlijke kans score 🟢',
     eNaam:'• Voornaam is verplicht', eEmail:'• Geldig e-mailadres is verplicht', eLocatie:'• Locatie / stad is verplicht', ePrijs:'• Maximale prijs is verplicht (of vink "Geen voorkeur" aan)',
     alertPrefix:'Vul de verplichte velden in:\n\n', saving:'Verzenden…', errMsg:'Er ging iets mis. Probeer het opnieuw.',
     koop_labels: { min:'Minimale vraagprijs (€)', max:'Maximale vraagprijs (€)', ph:'500.000' },
@@ -338,7 +368,12 @@ function applyLang() {
   txt('lbl-huisdieren',T.huisdieren); txt('lbl-gemeubileerd',T.gemeubileerd); txt('lbl-beschikbaar',T.beschikbaar);
   document.getElementById('submitBtn').textContent = T.submitBtn;
   txt('submit-note',T.submitNote);
-  txt('success-title',T.successTitle); html('success-body',T.successBody);
+  html('success-title',T.successTitle); html('success-body',T.successBody);
+  if(T.step1Title) {
+    const steps = document.querySelectorAll('.step-text');
+    if(steps[0]) steps[0].innerHTML = `<strong>${T.step1Title}</strong>${T.step1Body}`;
+    if(steps[1]) steps[1].innerHTML = `<strong>${T.step2Title}</strong>${T.step2Body}`;
+  }
 }
 
 function skip(id, cb) {
@@ -424,7 +459,9 @@ document.getElementById('filterForm').addEventListener('submit', async function(
     await fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
     document.getElementById('filterForm').style.display = 'none';
     document.querySelector('.hero').style.display = 'none';
-    document.getElementById('success').style.display = 'block';
+    const s = document.getElementById('success');
+    s.style.display = 'block';
+    setTimeout(() => s.classList.add('visible'), 10);
     window.scrollTo({ top:0, behavior:'smooth' });
   } catch {
     btn.disabled = false; btn.textContent = T.submitBtn;
